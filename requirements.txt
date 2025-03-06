@@ -1,0 +1,5 @@
+# transformers==4.49.0
+transformers
+torch
+datasets
+accelerate
