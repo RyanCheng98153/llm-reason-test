@@ -108,7 +108,7 @@ def test_deepseek():
     
     print(" ================ ")
     print("\n[Recap Result]:\n")
-    recap = re.search(r"Recap:(.*)", generated_recap)
+    recap = re.search(r"\[Recap\]:\n(.*)", generated_recap)
     print(recap.group(1) if recap else None)
     
 
