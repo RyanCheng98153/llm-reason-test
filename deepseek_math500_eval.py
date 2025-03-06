@@ -91,7 +91,7 @@ def test_deepseek():
     print("\n[Generated Text]:\n")
     print(generated_text)
 
-    recap_prompt = f"Recap your steps below\n\n[Recap]:\n"
+    recap_prompt = f"{generated_text} \nRecap your steps below\n\n[Recap]:\n"
     
     # Generate recap using the pipeline
     generated_recap = text_generator(
