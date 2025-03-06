@@ -102,6 +102,7 @@ def test_deepseek():
         num_return_sequences=1
     )[0]['generated_text']
     
+    print(" ================ ")
     print("\n[Recap]:\n")
     print(generated_recap)
 
