@@ -8,8 +8,16 @@ import argparse
 MODEL_NAME = "deepseek-ai/DeepSeek-R1"  # Change if using another DeepSeek-R1 model
 
 
-tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, dir="./.cache/tokenizers")
-model = AutoModelForCausalLM.from_pretrained("deepseek-ai/DeepSeek-R1", trust_remote_code=True, dir="./.cache/models")
+tokenizer = AutoTokenizer.from_pretrained(
+    MODEL_NAME, 
+    dir="./.cache/tokenizers"
+)
+model = AutoModelForCausalLM.from_pretrained(
+    "deepseek-ai/DeepSeek-R1", 
+    trust_remote_code=True, 
+    dir="./.cache/models",
+    torch_dtype=torch.float16  # Use FP16 instead of FP8
+)
 
 # model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, torch_dtype=torch.float16, device_map="auto", dir="./.cache/models")
 
