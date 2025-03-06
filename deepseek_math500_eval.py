@@ -103,8 +103,14 @@ def test_deepseek():
     )[0]['generated_text']
     
     print(" ================ ")
-    print("\n[Recap]:\n")
+    print("\n[Recap Generate Text]:\n")
     print(generated_recap)
+    
+    print(" ================ ")
+    print("\n[Recap Result]:\n")
+    recap = re.search(r"Recap:(.*)", generated_recap)
+    print(recap.group(1) if recap else None)
+    
 
 # Run evaluation
 if __name__ == "__main__":
