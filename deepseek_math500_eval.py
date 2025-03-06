@@ -69,11 +69,33 @@ def evaluate_math500(text_generator, dataset, num_samples=500, temperature=0.6):
     print(f"\nFinal Accuracy: {accuracy:.2%} ({correct}/{total})")
     return accuracy
 
+def test_deepseek():    
+    problem = "Solve the equation $2x + 3 = 7$."
+    temperature = 0.6
+    
+    prompt = f"{problem}\n\nPlease reason step by step, and put your final answer within \\boxed{{}}."
+        
+    # Generate response using the pipeline
+    generated_text = text_generator(
+        prompt,
+        max_new_tokens=512,
+        temperature=temperature,
+        do_sample=True,
+        num_return_sequences=1
+    )[0]['generated_text']    
+    
+    print("Prompt:")
+    print(prompt)
+    print("\nGenerated Text:")
+    print(generated_text)
+
+
 # Run evaluation
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--num_samples", type=int, default=500, help="Number of samples to evaluate")
     parser.add_argument("--temperature", type=float, default=0.6, help="Sampling temperature")
     args = parser.parse_args()
-
-    evaluate_math500(text_generator, dataset, num_samples=args.num_samples, temperature=args.temperature)
+    
+    test_deepseek()
+    # evaluate_math500(text_generator, dataset, num_samples=args.num_samples, temperature=args.temperature)
