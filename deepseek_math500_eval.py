@@ -70,7 +70,8 @@ def evaluate_math500(text_generator, dataset, num_samples=500, temperature=0.6):
     return accuracy
 
 def test_deepseek():    
-    problem = "Solve the equation $2x + 3 = 7$."
+    # problem = "Solve the equation $2x + 3 = 7$."
+    problem = "Solve the equation $x^3 + y^3 = 1024$, where x, y are integers."
     temperature = 0.6
     
     prompt = f"{problem}\n\nPlease reason step by step, and put your final answer within \\boxed{{}}."
