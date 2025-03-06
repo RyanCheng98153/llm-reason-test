@@ -5,7 +5,8 @@ import re
 import argparse
 
 # Load DeepSeek-R1 model and tokenizer
-MODEL_NAME = "deepseek-ai/DeepSeek-R1"  # Change if using another DeepSeek-R1 model
+# MODEL_NAME = "deepseek-ai/DeepSeek-R1"  # Change if using another DeepSeek-R1 model
+MODEL_NAME = "deepseek-ai/DeepSeek-R1-Distill-Llama-8B"
 
 
 tokenizer = AutoTokenizer.from_pretrained(
