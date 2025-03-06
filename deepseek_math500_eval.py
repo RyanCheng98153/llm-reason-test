@@ -14,7 +14,7 @@ tokenizer = AutoTokenizer.from_pretrained(
 )
 model = AutoModelForCausalLM.from_pretrained(
     "deepseek-ai/DeepSeek-R1", 
-    trust_remote_code=True, 
+    # trust_remote_code=True, 
     dir="./.cache/models",
     torch_dtype=torch.bfloat16  # Use FP16 instead of FP8
 )
