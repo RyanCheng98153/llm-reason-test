@@ -86,11 +86,24 @@ def test_deepseek():
         num_return_sequences=1
     )[0]['generated_text']    
     
-    print("Prompt:")
+    print("\n[Prompt]:\n")
     print(prompt)
-    print("\nGenerated Text:")
+    print("\n[Generated Text]:\n")
     print(generated_text)
 
+    recap_prompt = f"Recap your steps below\n\n[Recap]:\n"
+    
+    # Generate recap using the pipeline
+    generated_recap = text_generator(
+        recap_prompt,
+        max_new_tokens=512,
+        temperature=temperature,
+        do_sample=True,
+        num_return_sequences=1
+    )[0]['generated_text']
+    
+    print("\n[Recap]:\n")
+    print(generated_recap)
 
 # Run evaluation
 if __name__ == "__main__":
