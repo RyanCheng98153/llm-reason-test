@@ -60,3 +60,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     evaluate_math500(model, tokenizer, dataset, num_samples=args.num_samples, temperature=args.temperature)
+# python deepseek_math500_eval.py --num_samples 50 --temperature 0.6
