@@ -108,8 +108,8 @@ def test_deepseek():
     
     print(" ================ ")
     print("\n[Recap Result]:\n")
-    # get the recap text after [Recap]:\n
-    recap = re.search(r"Recap: (.*)", generated_recap)
+    # Extract final answer using regex all result below \[Recap\]:
+    recap = re.search(r"\[Recap\]:\n(.*)", generated_recap)
     print(recap.group if recap else None)
     
 
