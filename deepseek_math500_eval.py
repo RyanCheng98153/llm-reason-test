@@ -31,7 +31,8 @@ text_generator = pipeline(
 )
 
 # Load Math 500 dataset (assuming it's on Hugging Face)
-dataset = load_dataset("deepseek-ai/math500", split="test", cache_dir="./.cache/datasets")
+# dataset = load_dataset("deepseek-ai/math500", split="test", cache_dir="./.cache/datasets")
+dataset = load_dataset("HuggingFaceH4/MATH-500", cache_dir="./.cache/datasets")
 
 # Evaluation function
 def evaluate_math500(text_generator, dataset, num_samples=500, temperature=0.6):
