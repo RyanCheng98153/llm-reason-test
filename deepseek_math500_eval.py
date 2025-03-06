@@ -80,7 +80,7 @@ def test_deepseek():
     # Generate response using the pipeline
     generated_text = text_generator(
         prompt,
-        max_new_tokens=512,
+        max_new_tokens=128,
         temperature=temperature,
         do_sample=True,
         num_return_sequences=1
