@@ -115,10 +115,11 @@ def test_deepseek():
 
 # Run evaluation
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--num_samples", type=int, default=500, help="Number of samples to evaluate")
-    parser.add_argument("--temperature", type=float, default=0.6, help="Sampling temperature")
-    args = parser.parse_args()
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument("--num_samples", type=int, default=500, help="Number of samples to evaluate")
+    # parser.add_argument("--temperature", type=float, default=0.6, help="Sampling temperature")
+    # args = parser.parse_args()
+    # python deepseek_math500_eval.py --num_samples 50 --temperature 0.6
     
     test_deepseek()
-    # evaluate_math500(text_generator, dataset, num_samples=args.num_samples, temperature=args.temperature)
+    # evaluate_math500(text_generator, dataset, num_samples=50, temperature=0.6)
