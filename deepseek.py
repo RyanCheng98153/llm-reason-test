@@ -131,6 +131,9 @@ def test_recap():
     print(" ================ ")
     print("[Recap Result]:")
     print(recaption["recap"])
+    
+    print(" ================ ")
+    print(" Finished recap test")
 
 def evaluate_aime2024():
     # Load AIME 2024 dataset (assuming it's on Hugging Face)
