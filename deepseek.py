@@ -88,7 +88,7 @@ def recap(text_generator, problem) -> dict:
     print(len(generated_text))
     print(generated_text[0].items())
 
-    recap_prompt = f"{generated_text.lstrip(prompt)} \nRecap your steps below\n\n[Recap]:\n"
+    recap_prompt = f"{generated_text[0]['generated_text'].lstrip(prompt)} \nRecap your steps below\n\n[Recap]:\n"
     
     # Generate recap using the pipeline
     generated_recap = text_generator(
