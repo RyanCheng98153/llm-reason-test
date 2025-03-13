@@ -74,7 +74,7 @@ def recap(text_generator, problem) -> dict:
     # temperature = 0.6
     temperature = 0.6
     
-    prompt = f"{problem}\n\nPlease reason step by step, and must put your final answer within \\boxed{{}}."
+    prompt = f"{problem}\n\nPlease reason step by step, and put your final answer within \\boxed{{}}."
     # prompt = f"{problem}\n\nPlease reason step by step, and put your final answer within \\boxed{{}} and recap your reasoning in a few sentences within \\ideas{{}}.\n\n"
       
     # Generate response using the pipeline
