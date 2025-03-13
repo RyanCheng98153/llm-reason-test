@@ -97,7 +97,7 @@ def recap(text_generator, problem) -> dict:
     )[0]['generated_text']
     
     # Extract the process of recap by stripping the prompt and recap result
-    recap_process = generated_recap.split("[Recap]:")[0].split(prompt)[1].strip()
+    recap_process = generated_recap.split("[Recap]:")[0].split(recap_prompt)[1].strip()
     
     # Extract final answer using regex all result below \[Recap\]:
     recap = generated_recap.split("[Recap]:")[1]
@@ -132,7 +132,7 @@ if __name__ == "__main__":
     print(recaption["generated_text"])
 
     print(" ================ ")
-    print("[Recap Generate Text]:")
+    print("[Recap Process]:")
     print(recaption["recap_process"])
     
     print(" ================ ")
