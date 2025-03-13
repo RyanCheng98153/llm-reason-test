@@ -79,13 +79,16 @@ def recap(text_generator, problem) -> dict:
     # Generate response using the pipeline
     generated_text = text_generator(
         prompt,
-        max_new_tokens=512,
+        max_new_tokens=1024,
         temperature=temperature,
         do_sample=True,
         num_return_sequences=1
     )[0]['generated_text']
     
     print(generated_text)
+    
+    answer = re.search(r"\\boxed{(.*?)}", generated_text).group(1)
+    print("Answer: ", answer)
 
     recap_prompt = f"{generated_text.lstrip(prompt)} \nRecap your steps below\n\n[Recap]:\n"
     
