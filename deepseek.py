@@ -84,11 +84,6 @@ def recap(text_generator, problem) -> dict:
         do_sample=True,
         num_return_sequences=1
     )[0]['generated_text']    
-    
-    print("\n[Prompt]:\n")
-    print(prompt)
-    print("\n[Generated Text]:\n")
-    print(generated_text)
 
     recap_prompt = f"{generated_text} \nRecap your steps below\n\n[Recap]:\n"
     
@@ -101,15 +96,8 @@ def recap(text_generator, problem) -> dict:
         num_return_sequences=1
     )[0]['generated_text']
     
-    print(" ================ ")
-    print("\n[Recap Generate Text]:\n")
-    print(generated_recap)
-    
-    print(" ================ ")
-    print("\n[Recap Result]:\n")
     # Extract final answer using regex all result below \[Recap\]:
     recap = generated_recap.split("[Recap]:")[1]
-    print(recap)
     
     return {
         "prompt": prompt,
@@ -133,17 +121,17 @@ if __name__ == "__main__":
     # evaluate_math500(text_generator, num_samples=50, temperature=0.6)
     
     recaption = recap(text_generator, "Solve the equation $2x + 3 = 7$.")
-    print("\n[Prompt]:\n")
+    print("[Prompt]:")
     print(recaption["prompt"])
-    print("\n[Generated Text]:\n")
+    print("[Generated Text]:")
     print(recaption["generated_text"])
     
     print(" ================ ")
-    print("\n[Recap Generate Text]:\n")
+    print("[Recap Generate Text]:")
     print(recaption["generated_recap"])
     
     print(" ================ ")
-    print("\n[Recap Result]:\n")
+    print("[Recap Result]:")
     print(recaption["recap"])
     
     # evaluate_aime2024()
