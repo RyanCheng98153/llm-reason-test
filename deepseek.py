@@ -71,7 +71,8 @@ def evaluate_math500(text_generator, num_samples=500, temperature=0.6):
 def recap(text_generator, problem) -> dict:
     problem = "Solve the equation $2x + 3 = 7$."
     # problem = "Solve the equation $x^3 + y^3 = 1024, x+y=8, x*y=?$"
-    temperature = 0.6
+    # temperature = 0.6
+    temperature = 0.8
     
     prompt = f"{problem}\n\nPlease reason step by step, and put your final answer within \\boxed{{}}."
     # prompt = f"{problem}\n\nPlease reason step by step, and put your final answer within \\boxed{{}} and recap your reasoning in a few sentences within \\ideas{{}}.\n\n"
