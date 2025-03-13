@@ -79,7 +79,7 @@ def recap(text_generator, problem) -> dict:
     # Generate response using the pipeline
     generated_text = text_generator(
         prompt,
-        max_new_tokens=512,
+        max_new_tokens=1024,
         temperature=temperature,
         do_sample=True,
         num_return_sequences=1
