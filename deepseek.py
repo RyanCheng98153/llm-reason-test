@@ -97,7 +97,7 @@ def recap(text_generator, problem) -> dict:
     )[0]['generated_text']
     
     # Extract the process of recap by stripping the prompt and recap result
-    recap_process = generated_recap.split("[Recap]:")[0].split(recap_prompt)
+    recap_process = generated_recap.split("[Recap]:")[0].lstrip(recap_prompt)
     
     # Extract final answer using regex all result below \[Recap\]:
     recap = generated_recap.split("[Recap]:")[1]
@@ -113,6 +113,14 @@ def evaluate_aime2024():
     # Load AIME 2024 dataset (assuming it's on Hugging Face)
     dataset = load_dataset("Maxwell-Jia/AIME_2024", split="train", cache_dir="./.cache/datasets")
     evaluate_math500(text_generator, dataset, num_samples=50, temperature=0.6)
+    
+    # aime_dataset_structure
+    # {
+    # "ID": "2024-I-1",
+    # "Problem": "Problem statement...",
+    # "Solution": "Detailed solution...",
+    # "Answer": "Numerical answer"
+    # }
 
 # Run evaluation
 if __name__ == "__main__":
