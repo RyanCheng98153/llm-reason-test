@@ -88,7 +88,7 @@ def generate_recap_aime2024(text_generator):
     with open("aime2024_recaption.csv", "w") as csvfile:
         fieldnames = ["ID", "Problem", "Generated Text", "Answer", "Recap Process", "Recap"]
         writer = csv.writer(csvfile)
-        writer.writerows(fieldnames)
+        writer.writerow(fieldnames)
         
         for i, data in enumerate(dataset):
             print(f"Processing {i+1}/{len(dataset)}: {data['ID']}")
@@ -106,7 +106,7 @@ def generate_recap_aime2024(text_generator):
                 "Generated Text": recap_result["generated_text"],
                 "Recap Process": recap_result["recap_process"],
                 "Recap": recap_result["recap"],
-                "Answer": answer
+                "Answer": recap_result["Answer"]
             })
 
 def evaluate_aime2024():
