@@ -83,7 +83,7 @@ def recap(text_generator, problem) -> dict:
         temperature=temperature,
         do_sample=True,
         num_return_sequences=1
-    )[0]['generated_text']    
+    )[0]['generated_text']
 
     recap_prompt = f"{generated_text} \nRecap your steps below\n\n[Recap]:\n"
     
@@ -96,13 +96,16 @@ def recap(text_generator, problem) -> dict:
         num_return_sequences=1
     )[0]['generated_text']
     
+    # Extract the process of recap by stripping the prompt and recap result
+    recap_process = generated_recap.split("[Recap]:")[0].split(prompt)[1].strip()
+    
     # Extract final answer using regex all result below \[Recap\]:
     recap = generated_recap.split("[Recap]:")[1]
     
     return {
         "prompt": prompt,
         "generated_text": generated_text,
-        "generated_recap": generated_recap,
+        "recap_process": recap_process,
         "recap": recap
     }
 
@@ -123,12 +126,14 @@ if __name__ == "__main__":
     recaption = recap(text_generator, "Solve the equation $2x + 3 = 7$.")
     print("[Prompt]:")
     print(recaption["prompt"])
-    print("[Generated Text]:")
-    print(recaption["generated_text"])
     
     print(" ================ ")
+    print("[Generated Text]:")
+    print(recaption["generated_text"])
+
+    print(" ================ ")
     print("[Recap Generate Text]:")
-    print(recaption["generated_recap"])
+    print(recaption["recap_process"])
     
     print(" ================ ")
     print("[Recap Result]:")
