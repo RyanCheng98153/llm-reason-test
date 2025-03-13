@@ -93,6 +93,8 @@ def generate_recap_aime2024(text_generator):
         writer.writeheader()
         
         for i, data in enumerate(dataset):
+            print(f"Processing {i+1}/{len(dataset)}: {data['ID']}")
+            
             id = data["ID"]
             problem = data["Problem"]
             answer = data["Answer"]
