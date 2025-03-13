@@ -168,7 +168,7 @@ if __name__ == "__main__":
     # python deepseek.py --num_samples 50 --temperature 0.6
     # evaluate_math500(text_generator, num_samples=50, temperature=0.6)
     
-    recaption = recap(text_generator, "Solve the equation $2x + 3 = 7$.")
+    # recaption = recap(text_generator, "Solve the equation $2x + 3 = 7$.")
     # print("[Prompt]:")
     # print(recaption["prompt"])
     
