@@ -88,7 +88,7 @@ def recap(text_generator, problem) -> dict:
     
     print(generated_text)
     
-    match = re.findall('\\boxed{(.*?)\}', generated_text)
+    match = re.findall(r'\\boxed{(.*?)\}', generated_text)
     print("Answer: ", match)
 
     recap_prompt = f"{generated_text.lstrip(prompt)} \nRecap your steps below\n\n[Recap]:\n"
