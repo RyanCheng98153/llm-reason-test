@@ -193,4 +193,4 @@ if __name__ == "__main__":
     
     test_recap()
     
-    evaluate_aime2024()
+    # evaluate_aime2024()
