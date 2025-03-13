@@ -23,13 +23,7 @@ def recap(text_generator, problem) -> dict:
         num_return_sequences=1
     )[0]['generated_text']
     
-    print(generated_text)
-    
     match = re.findall(r'\\boxed{(.*?)\}', generated_text)
-    
-    print(" ================ \n")
-    print("[ Answer ]: ", match)
-    print("\n ================ ")
 
     recap_prompt = f"{generated_text.lstrip(prompt)} \nRecap your steps below\n\n[Recap]:\n"
     
@@ -51,6 +45,7 @@ def recap(text_generator, problem) -> dict:
     return {
         "prompt": prompt,
         "generated_text": generated_text,
+        "Answer": match,
         "recap_process": recap_process,
         "recap": recap
     }
@@ -64,6 +59,9 @@ def test_recap():
     print("[Generated Text]:")
     print(recaption["generated_text"])
 
+    print(" ================ \n")
+    print("[ Answer ]: ", recaption["Answer"])
+    
     print(" ================ ")
     print("[Recap Process]:")
     print(recaption["recap_process"])
