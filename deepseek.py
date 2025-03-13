@@ -115,6 +115,23 @@ def recap(text_generator, problem) -> dict:
         "recap": recap
     }
 
+def test_recap():
+    recaption = recap(text_generator, "Solve the equation $2x + 3 = 7$.")
+    print("[Prompt]:")
+    print(recaption["prompt"])
+    
+    print(" ================ ")
+    print("[Generated Text]:")
+    print(recaption["generated_text"])
+
+    print(" ================ ")
+    print("[Recap Process]:")
+    print(recaption["recap_process"])
+    
+    print(" ================ ")
+    print("[Recap Result]:")
+    print(recaption["recap"])
+
 def evaluate_aime2024():
     # Load AIME 2024 dataset (assuming it's on Hugging Face)
     dataset = load_dataset("Maxwell-Jia/AIME_2024", split="train", cache_dir="./.cache/datasets")
@@ -137,10 +154,13 @@ def evaluate_aime2024():
         print(f"Problem: {problem}")
         print(f"Answer: {answer}")
         
+        # recap_result = recap(text_generator, problem)
+        # print("[Prompt]:")
+        
         # # Construct the prompt following DeepSeek's recommendation
         # prompt = f"{problem}\n\nPlease reason step by step, and put your final answer within \\boxed{{}}."
 
-        # # Generate response using the pipeline
+        # Generate response using the pipeline
         # generated_text = text_generator(
         #     prompt,
         #     max_new_tokens=512,
@@ -149,11 +169,11 @@ def evaluate_aime2024():
         #     num_return_sequences=1
         # )[0]['generated_text']
 
-        # # Extract final answer using regex
+        # # # Extract final answer using regex
         # match = re.search(r"\\boxed{(.*?)}", generated_text)
         # predicted_answer = match.group(1) if match else None
 
-        # # Check correctness
+        # # # Check correctness
         # if predicted_answer and predicted_answer.strip() == answer.strip():
         #     correct += 1
 
@@ -168,20 +188,6 @@ if __name__ == "__main__":
     # python deepseek.py --num_samples 50 --temperature 0.6
     # evaluate_math500(text_generator, num_samples=50, temperature=0.6)
     
-    # recaption = recap(text_generator, "Solve the equation $2x + 3 = 7$.")
-    # print("[Prompt]:")
-    # print(recaption["prompt"])
-    
-    # print(" ================ ")
-    # print("[Generated Text]:")
-    # print(recaption["generated_text"])
-
-    # print(" ================ ")
-    # print("[Recap Process]:")
-    # print(recaption["recap_process"])
-    
-    # print(" ================ ")
-    # print("[Recap Result]:")
-    # print(recaption["recap"])
+    test_recap()
     
     evaluate_aime2024()
