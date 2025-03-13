@@ -31,42 +31,42 @@ text_generator = pipeline(
 )
 
 # Evaluation function
-def evaluate_math500(text_generator, num_samples=500, temperature=0.6):
-    # Load Math 500 dataset (assuming it's on Hugging Face)
-    dataset = load_dataset("HuggingFaceH4/MATH-500", cache_dir="./.cache/datasets")
+# def evaluate_math500(text_generator, num_samples=500, temperature=0.6):
+#     # Load Math 500 dataset (assuming it's on Hugging Face)
+#     dataset = load_dataset("HuggingFaceH4/MATH-500", cache_dir="./.cache/datasets")
 
-    correct = 0
-    total = min(num_samples, len(dataset))
+#     correct = 0
+#     total = min(num_samples, len(dataset))
     
-    for i in range(total):
-        problem = dataset[i]["question"]
-        answer = dataset[i]["answer"]
+#     for i in range(total):
+#         problem = dataset[i]["question"]
+#         answer = dataset[i]["answer"]
         
-        # Construct the prompt following DeepSeek's recommendation
-        prompt = f"{problem}\n\nPlease reason step by step, and put your final answer within \\boxed{{}}."
+#         # Construct the prompt following DeepSeek's recommendation
+#         prompt = f"{problem}\n\nPlease reason step by step, and put your final answer within \\boxed{{}}."
 
-        # Generate response using the pipeline
-        generated_text = text_generator(
-            prompt,
-            max_new_tokens=512,
-            temperature=temperature,
-            do_sample=True,
-            num_return_sequences=1
-        )[0]['generated_text']
+#         # Generate response using the pipeline
+#         generated_text = text_generator(
+#             prompt,
+#             max_new_tokens=512,
+#             temperature=temperature,
+#             do_sample=True,
+#             num_return_sequences=1
+#         )[0]['generated_text']
 
-        # Extract final answer using regex
-        match = re.search(r"\\boxed{(.*?)}", generated_text)
-        predicted_answer = match.group(1) if match else None
+#         # Extract final answer using regex
+#         match = re.search(r"\\boxed{(.*?)}", generated_text)
+#         predicted_answer = match.group(1) if match else None
 
-        # Check correctness
-        if predicted_answer and predicted_answer.strip() == answer.strip():
-            correct += 1
+#         # Check correctness
+#         if predicted_answer and predicted_answer.strip() == answer.strip():
+#             correct += 1
 
-        print(f"Sample {i+1}/{total}: {'Correct' if predicted_answer == answer else 'Incorrect'}")
+#         print(f"Sample {i+1}/{total}: {'Correct' if predicted_answer == answer else 'Incorrect'}")
 
-    accuracy = correct / total
-    print(f"\nFinal Accuracy: {accuracy:.2%} ({correct}/{total})")
-    return accuracy
+#     accuracy = correct / total
+#     print(f"\nFinal Accuracy: {accuracy:.2%} ({correct}/{total})")
+#     return accuracy
 
 def recap(text_generator, problem) -> dict:
     problem = "Solve the equation $2x + 3 = 7$."
