@@ -1,5 +1,5 @@
 import torch
-from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 from datasets import load_dataset
 import re
 import argparse
@@ -30,12 +30,11 @@ text_generator = pipeline(
     device=0 if device == "cuda" else -1
 )
 
-# Load Math 500 dataset (assuming it's on Hugging Face)
-# dataset = load_dataset("deepseek-ai/math500", split="test", cache_dir="./.cache/datasets")
-dataset = load_dataset("HuggingFaceH4/MATH-500", cache_dir="./.cache/datasets")
-
 # Evaluation function
-def evaluate_math500(text_generator, dataset, num_samples=500, temperature=0.6):
+def evaluate_math500(text_generator, num_samples=500, temperature=0.6):
+    # Load Math 500 dataset (assuming it's on Hugging Face)
+    dataset = load_dataset("HuggingFaceH4/MATH-500", cache_dir="./.cache/datasets")
+
     correct = 0
     total = min(num_samples, len(dataset))
     
@@ -69,7 +68,7 @@ def evaluate_math500(text_generator, dataset, num_samples=500, temperature=0.6):
     print(f"\nFinal Accuracy: {accuracy:.2%} ({correct}/{total})")
     return accuracy
 
-def test_deepseek():    
+def recap(text_generator, problem) -> dict:
     problem = "Solve the equation $2x + 3 = 7$."
     # problem = "Solve the equation $x^3 + y^3 = 1024, x+y=8, x*y=?$"
     temperature = 0.6
@@ -111,6 +110,18 @@ def test_deepseek():
     # Extract final answer using regex all result below \[Recap\]:
     recap = generated_recap.split("[Recap]:")[1]
     print(recap)
+    
+    return {
+        "prompt": prompt,
+        "generated_text": generated_text,
+        "generated_recap": generated_recap,
+        "recap": recap
+    }
+
+def evaluate_aime2024():
+    # Load AIME 2024 dataset (assuming it's on Hugging Face)
+    dataset = load_dataset("Maxwell-Jia/AIME_2024", split="train", cache_dir="./.cache/datasets")
+    evaluate_math500(text_generator, dataset, num_samples=50, temperature=0.6)
 
 # Run evaluation
 if __name__ == "__main__":
@@ -119,6 +130,20 @@ if __name__ == "__main__":
     # parser.add_argument("--temperature", type=float, default=0.6, help="Sampling temperature")
     # args = parser.parse_args()
     # python deepseek.py --num_samples 50 --temperature 0.6
+    # evaluate_math500(text_generator, num_samples=50, temperature=0.6)
     
-    test_deepseek()
-    # evaluate_math500(text_generator, dataset, num_samples=50, temperature=0.6)
+    recaption = recap(text_generator, "Solve the equation $2x + 3 = 7$.")
+    print("\n[Prompt]:\n")
+    print(recaption["prompt"])
+    print("\n[Generated Text]:\n")
+    print(recaption["generated_text"])
+    
+    print(" ================ ")
+    print("\n[Recap Generate Text]:\n")
+    print(recaption["generated_recap"])
+    
+    print(" ================ ")
+    print("\n[Recap Result]:\n")
+    print(recaption["recap"])
+    
+    # evaluate_aime2024()
