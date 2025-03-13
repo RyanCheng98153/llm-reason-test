@@ -85,7 +85,7 @@ def recap(text_generator, problem) -> dict:
         num_return_sequences=1
     )[0]['generated_text']
 
-    recap_prompt = f"{generated_text} \nRecap your steps below\n\n[Recap]:\n"
+    recap_prompt = f"{generated_text.lstrip(prompt)} \nRecap your steps below\n\n[Recap]:\n"
     
     # Generate recap using the pipeline
     generated_recap = text_generator(
@@ -112,8 +112,7 @@ def recap(text_generator, problem) -> dict:
 def evaluate_aime2024():
     # Load AIME 2024 dataset (assuming it's on Hugging Face)
     dataset = load_dataset("Maxwell-Jia/AIME_2024", split="train", cache_dir="./.cache/datasets")
-    evaluate_math500(text_generator, dataset, num_samples=50, temperature=0.6)
-    
+
     # aime_dataset_structure
     # {
     # "ID": "2024-I-1",
@@ -121,6 +120,35 @@ def evaluate_aime2024():
     # "Solution": "Detailed solution...",
     # "Answer": "Numerical answer"
     # }
+    
+    correct = 0
+    total = len(dataset)
+    
+    for i, data in enumerate(dataset):
+        problem = data["Problem"]
+        answer = data["Answer"]
+        
+        # Construct the prompt following DeepSeek's recommendation
+        prompt = f"{problem}\n\nPlease reason step by step, and put your final answer within \\boxed{{}}."
+
+        # Generate response using the pipeline
+        generated_text = text_generator(
+            prompt,
+            max_new_tokens=512,
+            temperature=0.6,
+            do_sample=True,
+            num_return_sequences=1
+        )[0]['generated_text']
+
+        # Extract final answer using regex
+        match = re.search(r"\\boxed{(.*?)}", generated_text)
+        predicted_answer = match.group(1) if match else None
+
+        # Check correctness
+        if predicted_answer and predicted_answer.strip() == answer.strip():
+            correct += 1
+
+        print(f"Sample {i+1}/{total}: {'Correct' if predicted_answer == answer else 'Incorrect'}")
 
 # Run evaluation
 if __name__ == "__main__":
