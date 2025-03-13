@@ -83,7 +83,10 @@ def recap(text_generator, problem) -> dict:
         temperature=temperature,
         do_sample=True,
         num_return_sequences=1
-    )[0]['generated_text']
+    )
+    # [0]['generated_text']
+    print(len(generated_text))
+    print(generated_text[0].items())
 
     recap_prompt = f"{generated_text.lstrip(prompt)} \nRecap your steps below\n\n[Recap]:\n"
     
@@ -160,19 +163,19 @@ if __name__ == "__main__":
     # evaluate_math500(text_generator, num_samples=50, temperature=0.6)
     
     recaption = recap(text_generator, "Solve the equation $2x + 3 = 7$.")
-    print("[Prompt]:")
-    print(recaption["prompt"])
+    # print("[Prompt]:")
+    # print(recaption["prompt"])
     
-    print(" ================ ")
-    print("[Generated Text]:")
-    print(recaption["generated_text"])
+    # print(" ================ ")
+    # print("[Generated Text]:")
+    # print(recaption["generated_text"])
 
-    print(" ================ ")
-    print("[Recap Process]:")
-    print(recaption["recap_process"])
+    # print(" ================ ")
+    # print("[Recap Process]:")
+    # print(recaption["recap_process"])
     
-    print(" ================ ")
-    print("[Recap Result]:")
-    print(recaption["recap"])
+    # print(" ================ ")
+    # print("[Recap Result]:")
+    # print(recaption["recap"])
     
     # evaluate_aime2024()
