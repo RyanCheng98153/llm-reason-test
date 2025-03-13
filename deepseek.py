@@ -134,27 +134,30 @@ def evaluate_aime2024():
         problem = data["Problem"]
         answer = data["Answer"]
         
-        # Construct the prompt following DeepSeek's recommendation
-        prompt = f"{problem}\n\nPlease reason step by step, and put your final answer within \\boxed{{}}."
+        print(f"Problem: {problem}")
+        print(f"Answer: {answer}")
+        
+        # # Construct the prompt following DeepSeek's recommendation
+        # prompt = f"{problem}\n\nPlease reason step by step, and put your final answer within \\boxed{{}}."
 
-        # Generate response using the pipeline
-        generated_text = text_generator(
-            prompt,
-            max_new_tokens=512,
-            temperature=0.6,
-            do_sample=True,
-            num_return_sequences=1
-        )[0]['generated_text']
+        # # Generate response using the pipeline
+        # generated_text = text_generator(
+        #     prompt,
+        #     max_new_tokens=512,
+        #     temperature=0.6,
+        #     do_sample=True,
+        #     num_return_sequences=1
+        # )[0]['generated_text']
 
-        # Extract final answer using regex
-        match = re.search(r"\\boxed{(.*?)}", generated_text)
-        predicted_answer = match.group(1) if match else None
+        # # Extract final answer using regex
+        # match = re.search(r"\\boxed{(.*?)}", generated_text)
+        # predicted_answer = match.group(1) if match else None
 
-        # Check correctness
-        if predicted_answer and predicted_answer.strip() == answer.strip():
-            correct += 1
+        # # Check correctness
+        # if predicted_answer and predicted_answer.strip() == answer.strip():
+        #     correct += 1
 
-        print(f"Sample {i+1}/{total}: {'Correct' if predicted_answer == answer else 'Incorrect'}")
+        # print(f"Sample {i+1}/{total}: {'Correct' if predicted_answer == answer else 'Incorrect'}")
 
 # Run evaluation
 if __name__ == "__main__":
@@ -181,4 +184,4 @@ if __name__ == "__main__":
     # print("[Recap Result]:")
     # print(recaption["recap"])
     
-    # evaluate_aime2024()
+    evaluate_aime2024()
