@@ -97,7 +97,7 @@ def recap(text_generator, problem) -> dict:
     )[0]['generated_text']
     
     # Extract the process of recap by stripping the prompt and recap result
-    recap_process = generated_recap.split("[Recap]:")[0].split(recap_prompt)[1].strip()
+    recap_process = generated_recap.split("[Recap]:")[0].split(recap_prompt)
     
     # Extract final answer using regex all result below \[Recap\]:
     recap = generated_recap.split("[Recap]:")[1]
