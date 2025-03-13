@@ -109,9 +109,8 @@ def test_deepseek():
     print(" ================ ")
     print("\n[Recap Result]:\n")
     # Extract final answer using regex all result below \[Recap\]:
-    recap = re.search(r"\[Recap\]:\n(.*)", generated_recap)
-    print(recap.group if recap else None)
-    
+    recap = generated_recap.split("[Recap]:")[1]
+    print(recap)
 
 # Run evaluation
 if __name__ == "__main__":
