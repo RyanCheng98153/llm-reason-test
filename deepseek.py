@@ -6,8 +6,8 @@ import csv
 import argparse
 
 def recap(text_generator, problem) -> dict:
-    problem = "Solve the equation $2x + 3 = 7$."
-    # problem = "Solve the equation $x^3 + y^3 = 1024, x+y=8, x*y=?$"
+    # problem = "Solve the equation $2x + 3 = 7$."
+    # # problem = "Solve the equation $x^3 + y^3 = 1024, x+y=8, x*y=?$"
     # temperature = 0.6
     temperature = 0.6
     
