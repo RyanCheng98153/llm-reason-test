@@ -86,7 +86,7 @@ def generate_recap_aime2024(text_generator):
     
     # write aim2024 recaption to csv file
     with open("aime2024_recaption.csv", "w") as csvfile:
-        titles = ["ID", "Problem", "Generated Text", "Answer", "Recap Process", "Recap", "Answer", "Solution"]
+        titles = ["ID", "Problem", "Recap Process", "Ground Truth", "Recap Process",  "Recap", "Recap Answer", "Prompt", "Generated Text", "Solution"]
         # writer = csv.writer(csvfile)
         # writer.writerow(titles)
         
@@ -106,12 +106,12 @@ def generate_recap_aime2024(text_generator):
             writer.writerow({
                 "ID": id,
                 "Problem": problem,
-                "Prompt": recap_result["prompt"],
-                "Generated Text": recap_result["generated_text"],
+                "Ground Truth": answer,
                 "Recap Process": recap_result["recap_process"],
                 "Recap": recap_result["recap"],
                 "Recap Answer": recap_result["Answer"],
-                "Ground Truth": answer,
+                "Prompt": recap_result["prompt"],
+                "Generated Text": recap_result["generated_text"],
                 "Solution": solution
             })
 
@@ -125,7 +125,7 @@ def read_aime2024_recaption(line: int):
                 print(f"[ Ground Truth ]: \n{row['Ground Truth']}")
                 print(f"[ Recap Process ]: \n{row['Recap Process']}")
                 print(f"[ Recap ]: \n{row['Recap']}")
-                print(f"[ Answer ]: \n{row['Answer']}")
+                print(f"[ Recap Answer ]: \n{row['Answer']}")
                 print(f"[ Prompt ]: \n{row['Prompt']}")
                 print(f"[ Generated Text ]: \n{row['Generated Text']}")
                 print(f"[ Solution ]: \n{row['Solution']}")
