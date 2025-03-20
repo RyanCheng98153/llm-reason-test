@@ -114,6 +114,20 @@ def generate_recap_aime2024(text_generator):
                 "Solution": solution
             })
 
+def read_aime2024_recaption(line: int):
+    with open("aime2024_recaption.csv", "r") as csvfile:
+        reader = csv.DictReader(csvfile)
+        for i, row in enumerate(reader):
+            if i == line:
+                print(f"ID: {row['ID']}")
+                print(f"Problem: {row['Problem']}")
+                print(f"Generated Text: {row['Generated Text']}")
+                print(f"Recap Process: {row['Recap Process']}")
+                print(f"Recap: {row['Recap']}")
+                print(f"Answer: {row['Answer']}")
+                print(f"Solution: {row['Solution']}")
+                break
+        
 def evaluate_aime2024():
     # Load AIME 2024 dataset (assuming it's on Hugging Face)
     dataset = load_dataset("Maxwell-Jia/AIME_2024", split="train", cache_dir="./.cache/datasets")
@@ -188,16 +202,12 @@ text_generator = pipeline(
     device=0 if device == "cuda" else -1
 )
 
+import sys
+
 # Run evaluation
 if __name__ == "__main__":
-    # parser = argparse.ArgumentParser()
-    # parser.add_argument("--num_samples", type=int, default=500, help="Number of samples to evaluate")
-    # parser.add_argument("--temperature", type=float, default=0.6, help="Sampling temperature")
-    # args = parser.parse_args()
-    # python deepseek.py --num_samples 50 --temperature 0.6
-    # evaluate_math500(text_generator, num_samples=50, temperature=0.6)
-    
-    test_recap()
-    generate_recap_aime2024(text_generator)
+    # test_recap()
+    # generate_recap_aime2024(text_generator)
+    read_aime2024_recaption(int(sys.argv[1]))
     
     # evaluate_aime2024()
