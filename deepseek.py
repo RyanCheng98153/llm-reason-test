@@ -44,7 +44,7 @@ def recap(text_generator, problem) -> dict:
     
     return {
         "prompt": prompt,
-        "generated_text": generated_text,
+        "generated_text": generated_text.lstrip(prompt),
         "Answer": match,
         "recap_process": recap_process,
         "recap": recap
@@ -106,11 +106,12 @@ def generate_recap_aime2024(text_generator):
             writer.writerow({
                 "ID": id,
                 "Problem": problem,
+                "Prompt": recap_result["prompt"],
                 "Generated Text": recap_result["generated_text"],
                 "Recap Process": recap_result["recap_process"],
                 "Recap": recap_result["recap"],
-                "Answer": recap_result["Answer"],
-                "Answer": answer,
+                "Recap Answer": recap_result["Answer"],
+                "Ground Truth": answer,
                 "Solution": solution
             })
 
@@ -119,13 +120,15 @@ def read_aime2024_recaption(line: int):
         reader = csv.DictReader(csvfile)
         for i, row in enumerate(reader):
             if i == line:
-                print(f"[ ID ]: {row['ID']}")
-                print(f"[ Problem ]: {row['Problem']}")
-                print(f"[ Generated Text ]: {row['Generated Text']}")
-                print(f"[ Recap Process ]: {row['Recap Process']}")
-                print(f"[ Recap ]: {row['Recap']}")
-                print(f"[ Answer ]: {row['Answer']}")
-                print(f"[ Solution ]: {row['Solution']}")
+                print(f"[ ID ]: \n{row['ID']}")
+                print(f"[ Problem ]: \n{row['Problem']}")
+                print(f"[ Ground Truth ]: \n{row['Ground Truth']}")
+                print(f"[ Recap Process ]: \n{row['Recap Process']}")
+                print(f"[ Recap ]: \n{row['Recap']}")
+                print(f"[ Answer ]: \n{row['Answer']}")
+                print(f"[ Prompt ]: \n{row['Prompt']}")
+                print(f"[ Generated Text ]: \n{row['Generated Text']}")
+                print(f"[ Solution ]: \n{row['Solution']}")
                 break
         
 def evaluate_aime2024():
@@ -207,7 +210,7 @@ import sys
 # Run evaluation
 if __name__ == "__main__":
     # test_recap()
-    # generate_recap_aime2024(text_generator)
-    read_aime2024_recaption(int(sys.argv[1]))
+    generate_recap_aime2024(text_generator)
+    # read_aime2024_recaption(int(sys.argv[1]))
     
     # evaluate_aime2024()
