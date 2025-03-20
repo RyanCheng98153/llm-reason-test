@@ -119,13 +119,13 @@ def read_aime2024_recaption(line: int):
         reader = csv.DictReader(csvfile)
         for i, row in enumerate(reader):
             if i == line:
-                print(f"ID: {row['ID']}")
-                print(f"Problem: {row['Problem']}")
-                print(f"Generated Text: {row['Generated Text']}")
-                print(f"Recap Process: {row['Recap Process']}")
-                print(f"Recap: {row['Recap']}")
-                print(f"Answer: {row['Answer']}")
-                print(f"Solution: {row['Solution']}")
+                print(f"[ ID ]: {row['ID']}")
+                print(f"[ Problem ]: {row['Problem']}")
+                print(f"[ Generated Text ]: {row['Generated Text']}")
+                print(f"[ Recap Process ]: {row['Recap Process']}")
+                print(f"[ Recap ]: {row['Recap']}")
+                print(f"[ Answer ]: {row['Answer']}")
+                print(f"[ Solution ]: {row['Solution']}")
                 break
         
 def evaluate_aime2024():
