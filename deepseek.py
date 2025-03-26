@@ -25,7 +25,7 @@ def recap(text_generator, problem) -> dict:
     
     match = re.findall(r'\\boxed{(.*?)\}', generated_text)
 
-    recap_prompt = f"{generated_text.lstrip(prompt)} \nRecap your steps below\n\n[Recap]:\n"
+    recap_prompt = f"{generated_text.lstrip(prompt)} \nRecap your steps below in a numbered list format:\n\n[Recap]:\n1."
     
     # Generate recap using the pipeline
     generated_recap = text_generator(
@@ -36,9 +36,6 @@ def recap(text_generator, problem) -> dict:
         num_return_sequences=1
     )[0]['generated_text']
     
-    # Extract the process of recap by stripping the prompt and recap result
-    recap_process = generated_recap.split("[Recap]:")[0].lstrip(recap_prompt)
-    
     # Extract final answer using regex all result below \[Recap\]:
     recap = generated_recap.split("[Recap]:")[1]
     
@@ -46,7 +43,7 @@ def recap(text_generator, problem) -> dict:
         "prompt": prompt,
         "generated_text": generated_text.lstrip(prompt),
         "Answer": match,
-        "recap_process": recap_process,
+        "recap_process": generated_recap.lstrip(recap_prompt.rstrip("1.")),
         "recap": recap
     }
 
