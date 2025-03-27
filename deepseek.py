@@ -83,7 +83,7 @@ def generate_recap_aime2024(text_generator):
     
     # write aim2024 recaption to csv file
     with open("aime2024_recaption.csv", "w") as csvfile:
-        titles = ["ID", "Problem", "Recap Process", "Ground Truth", "Recap Process",  "Recap", "Recap Answer", "Prompt", "Generated Text", "Solution"]
+        titles = ["ID", "Problem", "Ground Truth", "Recap Answer", "Recap", "Prompt", "Generated Text", "Solution", "Recap Process"]
         # writer = csv.writer(csvfile)
         # writer.writerow(titles)
         
