@@ -25,8 +25,9 @@ def recap(text_generator, problem) -> dict:
     
     match = re.findall(r'\\boxed{(.*?)\}', generated_text)
 
-    recap_prompt = f"{generated_text.lstrip(prompt)} \nRecap your steps below in a numbered list format:\n\n[Recap]:\n1."
-    
+    # recap_prompt = f"{generated_text.lstrip(prompt)} \nRecap your steps below in a numbered list format:\n\n[Recap]:\n1."
+    recap_prompt = f"{generated_text.lstrip(prompt)} \nRecap your steps below in a structured format:\n\n[Recap]:\n[Step 1]: "
+
     # Generate recap using the pipeline
     generated_recap = text_generator(
         recap_prompt,
