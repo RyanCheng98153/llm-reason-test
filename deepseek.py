@@ -5,10 +5,7 @@ import re
 import csv
 import argparse
 
-def recap(text_generator, problem) -> dict:
-    # problem = "Solve the equation $2x + 3 = 7$."
-    # # problem = "Solve the equation $x^3 + y^3 = 1024, x+y=8, x*y=?$"
-    # temperature = 0.6
+def generate(text_generator, problem) -> str:
     temperature = 0.6
     
     prompt = f"{problem}\n\nPlease reason step by step, put your final answer within \\boxed{{}}. Don't think too much."
@@ -24,9 +21,21 @@ def recap(text_generator, problem) -> dict:
     )[0]['generated_text']
     
     match = re.findall(r'\\boxed{(.*?)\}', generated_text)
+    
+    return {
+        "prompt": prompt,
+        "generated_text": generated_text.lstrip(prompt),
+        "generated_answer": match
+    }
 
+def recap(text_generator, generated_text) -> dict:
+    # problem = "Solve the equation $2x + 3 = 7$."
+    # # problem = "Solve the equation $x^3 + y^3 = 1024, x+y=8, x*y=?$"
+    # temperature = 0.6
+    temperature = 0.6
+    
     # recap_prompt = f"{generated_text.lstrip(prompt)} \nRecap your steps below in a numbered list format:\n\n[Recap]:\n1."
-    recap_prompt = f"{generated_text.lstrip(prompt)} \nRecap your steps below in a structured format:\n\n[Recap]:\n[Step 1]: "
+    recap_prompt = f"{generated_text} \nRecap your steps below in a structured format:\n\n[Recap]:\n[Step 1]: "
 
     # Generate recap using the pipeline
     generated_recap = text_generator(
@@ -41,34 +50,9 @@ def recap(text_generator, problem) -> dict:
     recap = generated_recap.split("[Recap]:")[1]
     
     return {
-        "prompt": prompt,
-        "generated_text": generated_text.lstrip(prompt),
-        "Answer": match,
         "recap_process": generated_recap.lstrip(recap_prompt.rstrip("1.")),
         "recap": recap
     }
-
-def test_recap():
-    recaption = recap(text_generator, "Solve the equation $2x + 3 = 7$.")
-    print("[Prompt]:")
-    print(recaption["prompt"])
-    
-    print(" ================ ")
-    print("[Generated Text]:")
-    print(recaption["generated_text"])
-
-    print(" ================ \n")
-    print("[ Answer ]: ", recaption["Answer"])
-    
-    print(" ================ ")
-    print("[Recap Process]:")
-    print(recaption["recap_process"])
-    
-    print(" ================ ")
-    print("[Recap Result]:")
-    print(recaption["recap"])
-    
-    print(" ================ ")
     
 def generate_recap_aime2024(text_generator):
     # Load AIME 2024 dataset (assuming it's on Hugging Face)
@@ -99,17 +83,18 @@ def generate_recap_aime2024(text_generator):
             answer = data["Answer"]
             solution = data["Solution"]
             
-            recap_result = recap(text_generator, problem)
+            generate_result = generate(text_generator, problem)
+            recap_result = recap(text_generator, generate_result["generated_text"])
             
             writer.writerow({
                 "ID": id,
                 "Problem": problem,
                 "Ground Truth": answer,
+                "Generate Answer": generate_result["generated_answer"],
                 "Recap Process": recap_result["recap_process"],
                 "Recap": recap_result["recap"],
-                "Recap Answer": recap_result["Answer"],
-                "Prompt": recap_result["prompt"],
-                "Generated Text": recap_result["generated_text"],
+                "Prompt": generate_result["prompt"],
+                "Generated Text": generate_result["generated_text"],
                 "Solution": solution
             })
 
@@ -150,31 +135,6 @@ def evaluate_aime2024():
         
         print(f"Problem: {problem}")
         print(f"Answer: {answer}")
-        
-        # recap_result = recap(text_generator, problem)
-        # print("[Prompt]:")
-        
-        # # Construct the prompt following DeepSeek's recommendation
-        # prompt = f"{problem}\n\nPlease reason step by step, and put your final answer within \\boxed{{}}."
-
-        # Generate response using the pipeline
-        # generated_text = text_generator(
-        #     prompt,
-        #     max_new_tokens=512,
-        #     temperature=0.6,
-        #     do_sample=True,
-        #     num_return_sequences=1
-        # )[0]['generated_text']
-
-        # # # Extract final answer using regex
-        # match = re.search(r"\\boxed{(.*?)}", generated_text)
-        # predicted_answer = match.group(1) if match else None
-
-        # # # Check correctness
-        # if predicted_answer and predicted_answer.strip() == answer.strip():
-        #     correct += 1
-
-        # print(f"Sample {i+1}/{total}: {'Correct' if predicted_answer == answer else 'Incorrect'}")
 
 
 # Load DeepSeek-R1 model and tokenizer
